@@ -20,7 +20,7 @@ namespace ShoppingCartApp
 
         public void pay(double amount)
         {
-            Console.WriteLine($"{amount} paid using eWallet");
+            Console.WriteLine($"Rs.{amount} paid using eWallet");
         }
     }
 }

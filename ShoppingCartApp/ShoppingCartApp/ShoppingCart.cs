@@ -28,11 +28,6 @@ namespace ShoppingCartApp
             return OrderItems.Count();
         }
 
-        public void AddItem(object itemOrder1)
-        {
-            throw new NotImplementedException();
-        }
-
         public double totalPriceOfItemsPurchased()
         {
             double total = 0;
