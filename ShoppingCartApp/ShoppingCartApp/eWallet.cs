@@ -27,7 +27,11 @@ namespace ShoppingCartApp
 
         public double DeductAmount(double amount)
         {
-            return balance = balance - amount;
+            if(balance > amount)
+            {
+                return balance = balance - amount;
+            }
+            throw new Exception("Insufficient Balance. Please add money to proceed further");
         }
 
 
