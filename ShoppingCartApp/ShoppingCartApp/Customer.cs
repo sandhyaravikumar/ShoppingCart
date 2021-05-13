@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ShoppingCartApp
 {
@@ -16,21 +16,22 @@ namespace ShoppingCartApp
             cart = new List<ShoppingCart>();
         }
 
-        public void CheckOutCart(ShoppingCart product)
+        public void AddCart(ShoppingCart product)
         {
             cart.Add(product);
         }
 
-        private double totalAmountTobePaid()
+        private double TotalAmount()
         {
-            double total = 0;
-            cart.ForEach(c => total += c.totalPriceOfItemsPurchased());
-            return total;
+            return cart.Where(c => c.getTotalPrice() > 0)
+                       .Select(c => c.getTotalPrice())
+                       .FirstOrDefault();
         }
 
-        public double getBalance()
+        public double GetBalance()
         {
-            return wallet.DeductAmount(totalAmountTobePaid());
+            double balance = wallet.DeductAmount(TotalAmount());
+            return balance;
         }
     }
 }

@@ -41,11 +41,11 @@ namespace ShoppingCart_UnitTest
             cart.AddProduct(milk);
             cart.AddProduct(newspaper);
 
-            double TotalPrice = cart.totalPriceOfItemsPurchased();
+            double TotalPrice = cart.getTotalPrice();
 
-            sandhya.CheckOutCart(cart);
+            sandhya.AddCart(cart);
 
-            double EwalletUpdatedBalance = sandhya.getBalance();
+            double EwalletUpdatedBalance = sandhya.GetBalance();
 
             Console.WriteLine($"Total Amount Rs.{TotalPrice} paid using Ewallet. Available Balance is Rs.{EwalletUpdatedBalance}");
             Assert.AreEqual(193, TotalPrice, "Mismatch in TotalCost of Purchase, Please check again");
@@ -62,16 +62,16 @@ namespace ShoppingCart_UnitTest
             cart.AddProduct(milk);
             cart.AddProduct(newspaper);
 
-            double TotalPrice = cart.totalPriceOfItemsPurchased();
+            double TotalPrice = cart.getTotalPrice();
             Assert.AreEqual(193, TotalPrice, "Mismatch in TotalCost of Purchase, Please check again");
 
             cart.RemoveProduct(milk);
 
-            double TotalPriceAfterRemovingItem = cart.totalPriceOfItemsPurchased();
+            double TotalPriceAfterRemovingItem = cart.getTotalPrice();
             Assert.AreEqual(133, TotalPriceAfterRemovingItem, "Mismatch in TotalCost of Purchase, Please check again");
 
-            sandhya.CheckOutCart(cart);
-            double EwalletUpdatedBalance = sandhya.getBalance();
+            sandhya.AddCart(cart);
+            double EwalletUpdatedBalance = sandhya.GetBalance();
 
             Console.WriteLine($"Total Amount Rs.{TotalPriceAfterRemovingItem} paid using Ewallet. Available Balance is Rs.{EwalletUpdatedBalance}");
         }

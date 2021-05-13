@@ -28,7 +28,7 @@ namespace ShoppingCartApp
             return products.Count();
         }
 
-        public double totalPriceOfItemsPurchased()
+        public double getTotalPrice()
         {
             double total = 0;
             products.ForEach(i => total += i.getPrice() * i.getQuantity());
