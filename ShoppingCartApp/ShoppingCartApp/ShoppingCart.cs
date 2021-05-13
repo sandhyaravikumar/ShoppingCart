@@ -6,39 +6,34 @@ namespace ShoppingCartApp
 {
     public class ShoppingCart
     {
-        private List<ItemOrder> OrderItems;
+        private List<IProduct> products;
 
         public ShoppingCart()
         {
-            OrderItems = new List<ItemOrder>();
+            products = new List<IProduct>();
         }
 
-        public void AddItem(ItemOrder item)
+        public void AddProduct(IProduct product)
         {
-            OrderItems.Add(item);
+            products.Add(product);
         }
 
-        public void removeItem(ItemOrder item)
+        public void RemoveProduct(IProduct product)
         {
-            OrderItems.Remove(item);
+            products.Remove(product);
         }
 
         public int totalNumberOfItems()
         {
-            return OrderItems.Count();
+            return products.Count();
         }
 
         public double totalPriceOfItemsPurchased()
         {
             double total = 0;
-            OrderItems.ForEach(i => total += i.TotalCost());
+            products.ForEach(i => total += i.getPrice() * i.getQuantity());
             return total;
         }
 
-        public void pay(eWallet eWallet)
-        {
-            double amount = totalPriceOfItemsPurchased();
-            eWallet.pay(amount);
-        }
     }
 }

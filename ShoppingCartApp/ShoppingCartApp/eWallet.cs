@@ -6,21 +6,31 @@ using System.Threading.Tasks;
 
 namespace ShoppingCartApp
 {
-    public class eWallet
+    public class eWallet: IEWallet
     {
-        private string emailID;
-        private string password;
+        private double balance;
 
-
-        public eWallet(string emailID, string password)
+        public eWallet(double balance)
         {
-            this.emailID = emailID;
-            this.password = password;
+            this.balance = balance;
         }
 
-        public void pay(double amount)
+        public double getBalance()
         {
-            Console.WriteLine($"Rs.{amount} paid using eWallet");
+            return balance;
         }
+
+        public double AddAmount(double amount)
+        {
+            return balance = balance + amount; 
+        }
+
+        public double DeductAmount(double amount)
+        {
+            return balance = balance - amount;
+        }
+
+
+
     }
 }

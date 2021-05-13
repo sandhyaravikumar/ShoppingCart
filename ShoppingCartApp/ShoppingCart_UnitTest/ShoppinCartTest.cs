@@ -1,30 +1,30 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShoppingCartApp;
+using System;
 
 namespace ShoppingCart_UnitTest
 {
     [TestClass]
     public class ShoppinCartTest
     {
-        ShoppingCart cart;
+        private ShoppingCart cart;
+        private Customer sandhya;
 
         [TestInitialize()]
         public void Initialize()
         {
             cart = new ShoppingCart();
+            sandhya = new Customer("Sandhya", 1000);
         }
 
         [TestMethod()]
         public void should_add_item_to_the_cart()
         {
-            Item item1 = new(ItemName.apple, 60);
-            Item item2 = new(ItemName.milk, 25);
+            Apple apple = new Apple("Apple", Apple.Categories.CameoApple, 65, 2);
+            Milk milk = new Milk("Milk", Milk.Categories.FullCreamMilk, 30, 2);
 
-            ItemOrder Order1 = new ItemOrder(item1, 2);
-            ItemOrder Order2 = new ItemOrder(item2, 1);
-
-            cart.AddItem(Order1);
-            cart.AddItem(Order2);
+            cart.AddProduct(apple);
+            cart.AddProduct(milk);
 
             double TotalItem = cart.totalNumberOfItems();
             Assert.AreEqual(2, TotalItem, "Mismatch in Total Number of Purchased Item, Please check again");
@@ -33,47 +33,47 @@ namespace ShoppingCart_UnitTest
         [TestMethod()]
         public void should_checkout_cart()
         {
-            Item item1 = new(ItemName.apple, 60);
-            Item item2 = new(ItemName.milk, 25);
-            Item item3 = new(ItemName.newspaper, 3);
+            Apple apple = new Apple("Apple", Apple.Categories.CameoApple, 65, 2);
+            Milk milk = new Milk("Milk", Milk.Categories.FullCreamMilk, 30, 2);
+            Newspaper newspaper = new Newspaper("Newspaper", Newspaper.Categories.TheIndianExpress, 3, 1);
 
-            ItemOrder Order1 = new ItemOrder(item1, 2);
-            ItemOrder Order2 = new ItemOrder(item2, 1);
-            ItemOrder Order3 = new ItemOrder(item3, 1);
-
-            cart.AddItem(Order1);
-            cart.AddItem(Order2);
-            cart.AddItem(Order3);
+            cart.AddProduct(apple);
+            cart.AddProduct(milk);
+            cart.AddProduct(newspaper);
 
             double TotalPrice = cart.totalPriceOfItemsPurchased();
-            Assert.AreEqual(148, TotalPrice, "Mismatch in TotalCost of Purchase, Please check again");
 
-            cart.pay(new eWallet("sandhya@mail.com", "Password"));
+            sandhya.CheckOutCart(cart);
+
+            double EwalletUpdatedBalance = sandhya.getBalance();
+
+            Console.WriteLine($"Total Amount Rs.{TotalPrice} paid using Ewallet. Available Balance is Rs.{EwalletUpdatedBalance}");
+            Assert.AreEqual(193, TotalPrice, "Mismatch in TotalCost of Purchase, Please check again");
         }
 
         [TestMethod()]
         public void should_remove_item_from_cart()
         {
-            Item item1 = new(ItemName.apple, 60);
-            Item item2 = new(ItemName.milk, 25);
+            Apple apple = new Apple("Apple", Apple.Categories.CameoApple, 65, 2);
+            Milk milk = new Milk("Milk", Milk.Categories.FullCreamMilk, 30, 2);
+            Newspaper newspaper = new Newspaper("Newspaper", Newspaper.Categories.TheIndianExpress, 3, 1);
 
-
-            ItemOrder Order1 = new ItemOrder(item1, 2);
-            ItemOrder Order2 = new ItemOrder(item2, 1);
-
-
-            cart.AddItem(Order1);
-            cart.AddItem(Order2);
+            cart.AddProduct(apple);
+            cart.AddProduct(milk);
+            cart.AddProduct(newspaper);
 
             double TotalPrice = cart.totalPriceOfItemsPurchased();
-            Assert.AreEqual(145, TotalPrice, "Mismatch in TotalCost of Purchase, Please check again");
-            
-            cart.removeItem(Order2);
+            Assert.AreEqual(193, TotalPrice, "Mismatch in TotalCost of Purchase, Please check again");
+
+            cart.RemoveProduct(milk);
 
             double TotalPriceAfterRemovingItem = cart.totalPriceOfItemsPurchased();
-            Assert.AreEqual(120, TotalPriceAfterRemovingItem, "Mismatch in TotalCost of Purchase, Please check again");
+            Assert.AreEqual(133, TotalPriceAfterRemovingItem, "Mismatch in TotalCost of Purchase, Please check again");
 
-            cart.pay(new eWallet("sandhya@mail.com", "Password"));
+            sandhya.CheckOutCart(cart);
+            double EwalletUpdatedBalance = sandhya.getBalance();
+
+            Console.WriteLine($"Total Amount Rs.{TotalPriceAfterRemovingItem} paid using Ewallet. Available Balance is Rs.{EwalletUpdatedBalance}");
         }
     }
 }
