@@ -7,28 +7,36 @@ namespace ShoppingCartApp
     {
         private string name;
         private eWallet wallet;
-        private List<ShoppingCart> cart;
+        private ShoppingCart cart;
 
         public Customer(string name, double amount)
         {
             this.name = name;
             wallet = new eWallet(amount);
-            cart = new List<ShoppingCart>();
+            cart = new ShoppingCart();
         }
 
-        public void AddCart(ShoppingCart product)
+        public void AddToCart(IProduct product)
         {
-            cart.Add(product);
+            cart.AddProduct(product);
+        }
+
+        public void RemoveFromCart(IProduct product)
+        {
+            cart.RemoveProduct(product);
         }
 
         private double TotalAmount()
         {
-            return cart.Where(c => c.getTotalPrice() > 0)
-                       .Select(c => c.getTotalPrice())
-                       .FirstOrDefault();
+            return cart.getTotalPrice();
         }
 
         public double GetBalance()
+        {
+            return wallet.getBalance();
+        }
+
+        public double PayFromEWallet()
         {
             double balance = wallet.DeductAmount(TotalAmount());
             return balance;

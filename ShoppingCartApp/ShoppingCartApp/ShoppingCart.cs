@@ -23,11 +23,6 @@ namespace ShoppingCartApp
             products.Remove(product);
         }
 
-        public int totalNumberOfItems()
-        {
-            return products.Count();
-        }
-
         public double getTotalPrice()
         {
             double total = 0;
