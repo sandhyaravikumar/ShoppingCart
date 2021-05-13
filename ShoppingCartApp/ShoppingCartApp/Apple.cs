@@ -25,22 +25,22 @@
             this.quantity = quantity;
         }
 
-        public double getPrice()
+        public double GetPrice()
         {
             return price;
         }
 
-        public Categories getType()
+        public Categories GetType()
         {
             return type;
         }
 
-        public int getQuantity()
+        public int GetQuantity()
         {
             return quantity;
         }
 
-        public string getName()
+        public string GetName()
         {
             return name;
         }

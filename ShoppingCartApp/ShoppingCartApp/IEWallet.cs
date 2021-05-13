@@ -2,7 +2,7 @@
 {
     public interface IEWallet
     {
-        double getBalance();
+        double GetBalance();
 
         double AddAmount(double amount);
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace ShoppingCartApp
 {
@@ -23,12 +21,16 @@ namespace ShoppingCartApp
             products.Remove(product);
         }
 
-        public double getTotalPrice()
+        public double GetTotalPrice()
         {
             double total = 0;
-            products.ForEach(i => total += i.getPrice() * i.getQuantity());
+            products.ForEach(i => total += i.GetPrice() * i.GetQuantity());
             return total;
         }
 
+        public void EmptyCart()
+        {
+            products.Clear();
+        }
     }
 }

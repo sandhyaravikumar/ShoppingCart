@@ -1,40 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShoppingCartApp
 {
-    public class eWallet: IEWallet
+    public class EWallet : IEWallet
     {
         private double balance;
 
-        public eWallet(double balance)
+        public EWallet(double balance)
         {
             this.balance = balance;
         }
 
-        public double getBalance()
+        public double GetBalance()
         {
             return balance;
         }
 
         public double AddAmount(double amount)
         {
-            return balance = balance + amount; 
+            return balance += amount;
         }
 
         public double DeductAmount(double amount)
         {
-            if(balance > amount)
+            if (balance > amount)
             {
-                return balance = balance - amount;
+                return balance -= amount;
             }
             throw new Exception("Insufficient Balance. Please add money to proceed further");
         }
-
-
-
     }
 }

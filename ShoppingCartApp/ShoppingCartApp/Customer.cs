@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace ShoppingCartApp
+﻿namespace ShoppingCartApp
 {
     public class Customer
     {
         private string name;
-        private eWallet wallet;
+        private EWallet ewallet;
         private ShoppingCart cart;
 
-        public Customer(string name, double amount)
+        public Customer(string name, EWallet ewallet)
         {
             this.name = name;
-            wallet = new eWallet(amount);
+            this.ewallet = ewallet;
             cart = new ShoppingCart();
         }
 
@@ -26,20 +23,25 @@ namespace ShoppingCartApp
             cart.RemoveProduct(product);
         }
 
-        private double TotalAmount()
+        private double GetTotalPrice()
         {
-            return cart.getTotalPrice();
+            return cart.GetTotalPrice();
         }
 
-        public double GetBalance()
+        public double GetWalletBalance()
         {
-            return wallet.getBalance();
+            return ewallet.GetBalance();
         }
 
-        public double PayFromEWallet()
+        public void PayFromEWallet()
         {
-            double balance = wallet.DeductAmount(TotalAmount());
-            return balance;
+            ewallet.DeductAmount(GetTotalPrice());
+            EmptyCart();
+        }
+
+        private void EmptyCart()
+        {
+            cart.EmptyCart();
         }
     }
 }

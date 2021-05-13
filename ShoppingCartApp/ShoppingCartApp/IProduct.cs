@@ -2,10 +2,10 @@
 {
     public interface IProduct
     {
-        int getQuantity();
+        int GetQuantity();
 
-        double getPrice();
+        double GetPrice();
 
-        string getName();
+        string GetName();
     }
 }

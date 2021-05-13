@@ -12,11 +12,12 @@ namespace ShoppingCart_UnitTest
         [TestInitialize()]
         public void Initialize()
         {
-            sandhya = new Customer("Sandhya", 1000);
+            EWallet eWallet = new EWallet(1000);
+            sandhya = new Customer("Sandhya", eWallet);
         }
 
         [TestMethod()]
-        public void should_checkout_cart()
+        public void Should_checkout_cart()
         {
             Apple apple = new Apple("Apple", Apple.Categories.CameoApple, 65, 2);
             Milk milk = new Milk("Milk", Milk.Categories.FullCreamMilk, 30, 2);
@@ -28,14 +29,14 @@ namespace ShoppingCart_UnitTest
 
             sandhya.PayFromEWallet();
 
-            double EwalletUpdatedBalance = sandhya.GetBalance();
+            double EwalletUpdatedBalance = sandhya.GetWalletBalance();
 
             Console.WriteLine($"Order placed Successfully. Available Balance in your E-Wallet is Rs.{EwalletUpdatedBalance}");
             Assert.AreEqual(807, EwalletUpdatedBalance, "Mismatch in EWallet Balance, Please check again");
         }
 
         [TestMethod()]
-        public void should_remove_item_from_cart()
+        public void Should_remove_item_from_cart()
         {
             Apple apple = new Apple("Apple", Apple.Categories.CameoApple, 65, 2);
             Milk milk = new Milk("Milk", Milk.Categories.FullCreamMilk, 30, 2);
@@ -49,7 +50,7 @@ namespace ShoppingCart_UnitTest
 
             sandhya.PayFromEWallet();
 
-            double EwalletUpdatedBalance = sandhya.GetBalance();
+            double EwalletUpdatedBalance = sandhya.GetWalletBalance();
 
             Console.WriteLine($"Order placed Successfully. Available Balance in your E-Wallet is Rs.{EwalletUpdatedBalance}");
             Assert.AreEqual(867, EwalletUpdatedBalance, "Mismatch in EWallet Balance, Please check again");
